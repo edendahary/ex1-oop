@@ -45,6 +45,8 @@ public class WGraph_Algo implements weighted_graph_algorithms,Serializable {
             break;
         }
         for(node_info curr : this.graph.getV()){
+            // check if there is a node with max value
+            // if so return false.
             if (curr.getTag() == Double.MAX_VALUE){
                 return false;
             }
@@ -70,13 +72,14 @@ public class WGraph_Algo implements weighted_graph_algorithms,Serializable {
         node_info d = this.graph.getNode(dest);
         if (s == null || d == null || d.getTag() == -1) return null;
         LinkedList<node_info> Path = new LinkedList<>();
-
+        // creating a new list of node_info
         if (src == dest) {
             Path.addFirst(s);
             return Path;
         }
         HashMap<Integer,node_info> ValidPath = Dijkstra(s.getKey());
-
+        // adding to the list the current dest and every time taking
+        // the parent of the current node until we get to null(the src node).
         Path.addFirst(graph.getNode(dest));
         node_info curr = ValidPath.get(dest);
 
@@ -129,6 +132,7 @@ public class WGraph_Algo implements weighted_graph_algorithms,Serializable {
         Queue<node_info> queue = new PriorityQueue<node_info>(new Comparator<node_info>() {
             @Override
             public int compare(node_info o1, node_info o2) {
+                // compare if the tag is smaller he will get much more priority
                 if (o1.getTag() < o2.getTag()) {
                     return -1;
                 } else if (o1.getTag() > o2.getTag()) {
@@ -137,10 +141,10 @@ public class WGraph_Algo implements weighted_graph_algorithms,Serializable {
                 return 0;
             }
         });
-            HashMap<Integer, node_info> Parent = new HashMap<>();
-            HashMap<Integer, Double> Dis = new HashMap<>();
+            HashMap<Integer, node_info> Parent = new HashMap<>();// save all the Parent of all the nodes
+            HashMap<Integer, Double> Dis = new HashMap<>(); // save the dis of all the nodes
             node_info s = this.graph.getNode(src);
-        for (node_info curr : this.graph.getV()) {
+        for (node_info curr : this.graph.getV()) { // init all the nodes tag and insert to the queue
             curr.setTag(Double.MAX_VALUE);
             Dis.put(curr.getKey(), Double.MAX_VALUE);
             queue.add(curr);
@@ -156,6 +160,9 @@ public class WGraph_Algo implements weighted_graph_algorithms,Serializable {
             node_info curr = s;
             Iterator<node_info> i = this.graph.getV(s.getKey()).iterator();
             while (i.hasNext()) {
+                // running on all the neighbors of the current node and checking
+                // if the distance of the node + the edge wight from the node to is neighbor is smaller
+                // if so replace the distance and put in the Hashmap Dis
                 node_info n = i.next();
                 double dis = Dis.get(s.getKey()) + this.graph.getEdge(s.getKey(), n.getKey());
                 if(dis<Dis.get(n.getKey())){
@@ -166,6 +173,8 @@ public class WGraph_Algo implements weighted_graph_algorithms,Serializable {
                 }
            }
         }
+        // return a Hashmap of all the nodes with there parent
+        // note: the given node is parent should be null
             return Parent;
     }
     }
