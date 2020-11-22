@@ -53,6 +53,7 @@ return the amount of the edges in the graph.
 This Class represents the "regular" Graph Theory algorithms.
 such as:
 dijkstra algorithm that given us the shortest path and the dist from the given nodes.
+
 checking if the graph is conncted that from every node i can get to every other node.
 
 ## Methods:
