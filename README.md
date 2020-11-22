@@ -61,7 +61,7 @@ checking if the graph is conncted that from every node i can get to every other 
 ### boolean save(String file)
 Saves the graph to the given file name.
 
-### boolean load(String file);
+### boolean load(String file)
 This method load a graph to this graph algorithm.
 
 ### boolean isConnected()
